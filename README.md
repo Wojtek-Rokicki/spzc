@@ -15,4 +15,5 @@ Project was written in Python \
 ## References:
 - [Working with venvs](https://realpython.com/python-virtual-environments-a-primer/)
 - [Django tutorial](https://docs.djangoproject.com/en/4.0/intro/tutorial01/)
+- [Bootstrap docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 - [How to HTTP proxy with Python](https://levelup.gitconnected.com/how-to-build-a-super-simple-http-proxy-in-python-in-just-17-lines-of-code-a1a09192be00)
