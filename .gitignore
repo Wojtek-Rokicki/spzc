@@ -1,0 +1,8 @@
+.vscode
+__pycache__/
+
+server/venv/
+proxy/venv/
+bots/venv/
+
+server/db.sqlite3
