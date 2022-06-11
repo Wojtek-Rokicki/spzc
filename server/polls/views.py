@@ -43,4 +43,17 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 def boot(request):
+    # 1.
+    # info o sesji - https://docs.djangoproject.com/en/4.0/topics/http/sessions/
+    # zapisanie wygenerowanych wartości losowych dla danego użytkownika
+    # 2.
+    # Zmodyfikowanie renderingu - wstawienie modyfikacji w tagach
+
     return render(request, 'polls/boot.html')
+
+'''
+def forms_filled(request):
+    # retrive names from session
+    request.POST[...]
+
+'''

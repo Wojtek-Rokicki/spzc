@@ -9,6 +9,9 @@ Project was written in Python \
 - [ ] Write bots for automatic polls filling (Selenium)
 - [ ] Write analysis module for statistics (server side)
 
+## Additional ideas:
+- modifying form structure by adding hidden elements and checking if bot filled them. If so then reject form.
+
 ## Resources:
 - [Project resources](https://drive.google.com/drive/folders/1vPMTHjgQFr9amuItG07vp0vBxZpR13lt?usp=sharing) paste to server/
 
