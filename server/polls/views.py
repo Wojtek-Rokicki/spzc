@@ -64,8 +64,8 @@ def boot(request: HttpRequest):
     context = {"Rtag": R_tag}
 
     email, res_email = Rtag("email", R_tag)
-    password, _ = Rtag("password", R_tag)
-    address, _= Rtag("address", R_tag)
+    password, res_password = Rtag("password", R_tag)
+    address, res_address = Rtag("address", R_tag)
 
     context = {
         "email": email,
@@ -77,14 +77,35 @@ def boot(request: HttpRequest):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         try:
-            print(request.POST)
-            print(email)
-            if res_email:
-                print(decrypt(res_email))
-            email_post = request.POST[email]
-            print(email_post)
-            password_post = request.POST[password]
-            address_post = request.POST[address]
+            req_keys = list(request.POST)[1:]
+            print(req_keys)
+            if res_email and res_address and res_password:
+                try:
+                    for res in (res_email, res_password, res_address):
+                        '''
+                        nie dziala bo zmienny jest ten parametr nounce. Moze faktycznie trzeba jakos inny zrobic widok do post
+                        ale wtedy trzeba by przekayzwac jakos zapamietane parametry. Kurde ciezka kminka troche nie mam pomyslu :/ 
+
+                        '''
+                        for key in req_keys:
+                            res["ciphertext"] = key
+                            decrypted = decrypt(res, R_tag)
+                            if decrypted==b'email':
+                                email_post = request.POST[key]
+                                break
+                            elif decrypted==b'password':
+                                password_post = request.POST[key]
+                                break
+                            elif decrypted==b'address':
+                                address_post = request.POST[key]
+                                break
+                except:
+                    print("error")
+            else: 
+                email_post = request.POST[email]
+                password_post = request.POST[password]
+                address_post = request.POST[address]
+            
             model = FirstPoll(email=email_post, password=password_post, address=address_post)
             model.save()
             print("Model saved")
