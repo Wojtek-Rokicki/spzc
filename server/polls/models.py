@@ -18,3 +18,12 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
+class FirstPoll(models.Model):
+    def __str__(self):
+        return self.email
+    
+    email = models.EmailField(max_length=254)
+    password = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+

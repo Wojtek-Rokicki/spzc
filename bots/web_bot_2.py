@@ -18,9 +18,9 @@ browser.get(config["URL"])
 
 # find elements
 try: 
-    email = browser.find_element(By.NAME, "email")
-    password = browser.find_element(By.NAME, "password")
-    address = browser.find_element(By.NAME, "address")
+    email = browser.find_element(By.XPATH, "//input[contains(@name,'email')]")
+    password = browser.find_element(By.XPATH, "//input[contains(@name,'password')]")
+    address = browser.find_element(By.XPATH, "//input[contains(@name,'address')]")
     email.send_keys("abc@abc.pl")
     password.send_keys("sadsa")
     address.send_keys("sassa")
