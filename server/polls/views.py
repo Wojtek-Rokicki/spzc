@@ -62,7 +62,6 @@ def boot(request: HttpRequest):
 
     R_tag = request.session._session_key
     context = {"Rtag": R_tag}
-
     email, res_email = Rtag("email", R_tag)
     password, res_password = Rtag("password", R_tag)
     address, res_address = Rtag("address", R_tag)
@@ -73,43 +72,31 @@ def boot(request: HttpRequest):
         "address": address,
         "Rtag" : R_tag
     }
+    if request.method== "GET":
+       #koncepcyjnie
+        request.session["res_email"] = email
+        request.session["res_address"] = address
+        request.session["res_password"] = password
+        print(request.session.get("res_email"))
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         try:
-            req_keys = list(request.POST)[1:]
-            print(req_keys)
-            if res_email and res_address and res_password:
+                res_email = request.session.get('res_email')
+                res_address = request.session.get('res_address')
+                res_password = request.session.get('res_password')
                 try:
-                    for res in (res_email, res_password, res_address):
-                        '''
-                        nie dziala bo zmienny jest ten parametr nounce. Moze faktycznie trzeba jakos inny zrobic widok do post
-                        ale wtedy trzeba by przekayzwac jakos zapamietane parametry. Kurde ciezka kminka troche nie mam pomyslu :/ 
-
-                        '''
-                        for key in req_keys:
-                            res["ciphertext"] = key
-                            decrypted = decrypt(res, R_tag)
-                            if decrypted==b'email':
-                                email_post = request.POST[key]
-                                break
-                            elif decrypted==b'password':
-                                password_post = request.POST[key]
-                                break
-                            elif decrypted==b'address':
-                                address_post = request.POST[key]
-                                break
+                    email_post = request.POST[res_email] 
+                    password_post = request.POST[res_password] 
+                    address_post = request.POST[res_address] 
                 except:
                     print("error")
-            else: 
-                email_post = request.POST[email]
-                password_post = request.POST[password]
-                address_post = request.POST[address]
-            
-            model = FirstPoll(email=email_post, password=password_post, address=address_post)
-            model.save()
-            print("Model saved")
+
+                model = FirstPoll(email=email_post, password=password_post, address=address_post)
+                model.save()
+                print("Model saved")
         except:
-            print("Not able to save")
+                print("Not able to save")
 
     return render(request, 'polls/boot.html', context)
+
