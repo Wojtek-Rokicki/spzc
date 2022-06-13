@@ -16,7 +16,7 @@ Project was written in Python \
     - gdown https://drive.google.com/drive/u/0/folders/1vPMTHjgQFr9amuItG07vp0vBxZpR13lt -O db.sqlite3
     - python manage.py runserver
 
-It will automatically run server on localhost (127.0.0.1:800).
+It will automatically run server on localhost (127.0.0.1:8000). Form will be available at 127.0.0.1:8000/polls/boot-test.
 
 - In terminal with bots run python scripts with different web bots and see the effect:
     - python web_bot_1.py
