@@ -11,7 +11,8 @@
 <body>
     <div class="container">
       <!-- Add name tag for all inputs -->
-        <form class="row g-3" method="post" action = "boot">
+        <form class="row g-3" style="margin-top: 4em;" method="post" action = "boot">
+          {% if captcha %}<div class="col-12">Captcha</div><div class="col-12">{{form.captcha}}</div>{% endif %}
           {% csrf_token %}
             <div class="col-md-6">
               <label for="inputEmail4" class="form-label">Email</label>

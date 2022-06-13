@@ -9,8 +9,8 @@ from django.conf import settings
 from django.template import Context
 
 from .models import Choice, Question, FirstPoll
-from scripts.utils import Rtag, decrypt
-
+from scripts.utils import Rtag, decrypt, load_config
+from .forms import MyForm
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -57,6 +57,14 @@ def boot(request: HttpRequest):
     # Zmodyfikowanie renderingu - wstawienie modyfikacji w tagach
     #session_key = request.COOKIES[settings.SESSION_COOKIE_NAME]
 
+    if request.method=="POST":
+      form=MyForm(request.POST)
+      if form.is_valid():
+         print("success")
+      else:
+         print("fail")
+    form=MyForm()
+
     if not request.session.session_key:
         request.session.create()
 
@@ -66,11 +74,15 @@ def boot(request: HttpRequest):
     password, res_password = Rtag("password", R_tag)
     address, res_address = Rtag("address", R_tag)
 
+    config = load_config("config.json")
+
     context = {
         "email": email,
         "passwd": password,
         "address": address,
-        "Rtag" : R_tag
+        "Rtag" : R_tag,
+        "form":form,
+        "captcha": config["Captcha"]
     }
     if request.method== "GET":
        #koncepcyjnie

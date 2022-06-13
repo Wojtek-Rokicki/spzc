@@ -1,4 +1,5 @@
 {
     "Rtag": true,
-    "Append": false
+    "Append": false,
+    "Captcha": true
 }
