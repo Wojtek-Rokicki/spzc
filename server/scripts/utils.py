@@ -16,7 +16,8 @@ def Rtag(string: str, session_key: str):
         res = json.loads(randomize(string, session_key))
         return res['ciphertext'], res # here random
     else:
-        return string+session_key, None
+        res = json.loads(randomize(string, session_key))
+        return string+res['ciphertext'], None
 
 def randomize(string: str, key: str):
     m = hashlib.sha256()
@@ -37,6 +38,5 @@ def decrypt(load: dict, key: str):
     json_k = ['nonce', 'ciphertext', 'tag']
     jv = {k:b64decode(load[k]) for k in json_k}
     cipher = AES.new(key, AES.MODE_EAX, nonce=jv['nonce'])
-    #print(cipher.decrypt_and_verify(jv['ciphertext'], jv['tag']))
     return cipher.decrypt(jv["ciphertext"])
 
