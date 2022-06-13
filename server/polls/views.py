@@ -1,15 +1,11 @@
-from ctypes import addressof
-from curses.ascii import HT
-import re
 from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.conf import settings
-from django.template import Context
 
 from .models import Choice, Question, FirstPoll
-from scripts.utils import Rtag, decrypt, load_config
+from scripts.utils import Rtag, load_config
 from .forms import MyForm
 
 class IndexView(generic.ListView):
@@ -50,12 +46,6 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 def boot(request: HttpRequest):
-    # 1.
-    # info o sesji - https://docs.djangoproject.com/en/4.0/topics/http/sessions/
-    # zapisanie wygenerowanych wartości losowych dla danego użytkownika
-    # 2.
-    # Zmodyfikowanie renderingu - wstawienie modyfikacji w tagach
-    #session_key = request.COOKIES[settings.SESSION_COOKIE_NAME]
 
     if request.method=="POST":
       form=MyForm(request.POST)
