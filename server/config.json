@@ -1,5 +1,5 @@
 {
     "Rtag": true,
     "Append": false,
-    "Captcha": true
+    "Captcha": false   
 }

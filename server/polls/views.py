@@ -59,10 +59,6 @@ def boot(request: HttpRequest):
 
     if request.method=="POST":
       form=MyForm(request.POST)
-      if form.is_valid():
-         print("success")
-      else:
-         print("fail")
     form=MyForm()
 
     if not request.session.session_key:
